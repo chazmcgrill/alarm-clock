@@ -10,11 +10,20 @@ html(lang="en")
     link(rel="stylesheet", href="./css/styles.css")
       
   body
+    
     .container
+      
       .clock-wrap
+        ul.control-hrs
+          li +
+          li -
         .hrs 00
         span :
         .mins 00
+        ul.control-mins
+          li +
+          li -
+
       .btn-wrap
         .alarm SET ALARM
         .type AM/PM

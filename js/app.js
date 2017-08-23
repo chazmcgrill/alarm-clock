@@ -28,9 +28,7 @@ $('.type').click(function(){
 });
 
 $('.alarm').click(function(){
-	alarmSetFlag = !alarmSetFlag;
-	// show adjusment controls
-	// blink display
-	//
-
+  alarmSetFlag ? $('ul').css('display', 'none') :
+  $('ul').css('display', 'block');
+  alarmSetFlag = !alarmSetFlag;
 });
