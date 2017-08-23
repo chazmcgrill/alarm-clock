@@ -30,7 +30,6 @@ body {
 }
 
 .clock-wrap ul li {
-  cursor: pointer;
   color: #8FBC94;
 }
 
@@ -56,10 +55,10 @@ body {
   font-weight: 300;
 }
 
-.alarm, .type {
+.alarm, .type, li {
   cursor: pointer;
 }
 
-.alarm:hover, .type:hover {
+.alarm:hover, .type:hover, li:hover {
   color: #C5E99B;
 }
