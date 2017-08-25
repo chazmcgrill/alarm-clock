@@ -27,6 +27,7 @@ body {
   padding: 5px;
   margin: 0;
   display: none;
+  outline: none;
 }
 
 .clock-wrap ul li {

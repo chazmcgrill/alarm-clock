@@ -40,7 +40,7 @@ function alarmControl(val, sym) {
 }
 
 // dont allow above or below 24hrs or 60 secs
-function alarmLimiter(val) {
+function alarmLimiter(val, time) {
   if (val === 'mins' && alarmData.mins > 59) {
     alarmData.mins -= 60;
   } else if (val === 'mins' && alarmData.mins < 0) {
@@ -60,7 +60,7 @@ setInterval(setClock, 1000);
 
 // Click events
 $('.type').click(function(){
-	typeFlag ? $('.type').text('24HRS') : $('.type').text('AM/PM');
+	typeFlag ? $('.type').text('AM/PM') : $('.type').text('24HRS');
 	typeFlag = !typeFlag;
 });
 
