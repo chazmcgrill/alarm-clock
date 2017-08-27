@@ -1,4 +1,4 @@
-var typeFlag = true,
+var modeFlag = true,
 		alarmSetFlag = false,
     alarmData = {
       hrs: 0,
@@ -9,7 +9,7 @@ var typeFlag = true,
 // Functions
 // display clock data
 function display(hrs, mins) {
-	if(!typeFlag && hrs > 12) {
+	if(!modeFlag && hrs > 12) {
 		hrs = hrs - 12;
 	}
 	if(hrs < 10) { hrs = '0' + hrs; }
@@ -40,7 +40,7 @@ function alarmControl(val, sym) {
 }
 
 // dont allow above or below 24hrs or 60 secs
-function alarmLimiter(val, time) {
+function alarmLimiter(val) {
   if (val === 'mins' && alarmData.mins > 59) {
     alarmData.mins -= 60;
   } else if (val === 'mins' && alarmData.mins < 0) {
@@ -53,37 +53,44 @@ function alarmLimiter(val, time) {
   display(alarmData.hrs, alarmData.mins);
 }
 
+function setAlarm(toSet, text) {
+	var $a = $('.alarm-display')
+	alarmData.alarmSet = toSet;
+	$('.alarm').text(text);
+	console.log(alarmData);
+	toSet ? $a.text('alarm set for ' + alarmData.hrs + ':' + alarmData.mins)
+	: $a.text('no alarm set');
+}
 
 // Set interval timer that checks every second.
 setInterval(setClock, 1000);
 
 
 // Click events
-$('.type').click(function(){
-	typeFlag ? $('.type').text('AM/PM') : $('.type').text('24HRS');
-	typeFlag = !typeFlag;
+$('.mode').click(function(){
+	modeFlag ? $('.mode-display').text('am/pm clock') : $('.mode-display').text('24hr clock');
+	modeFlag = !modeFlag;
 });
 
 $('.alarm').click(function(){
-  if(alarmSetFlag) {
-    $('ul').css('display', 'none');
-  } else {
-    $('ul').css('display', 'block');
-    currentTime();
-  }
-  alarmSetFlag = !alarmSetFlag;
+	if (alarmData.alarmSet) {
+		setAlarm(false, 'set alarm');
+	} else {
+		$('ul').toggleClass('handle');
+		$('.nums').toggleClass('flash');
+		alarmSetFlag ? setAlarm(true, 'cancel alarm') : currentTime();
+		alarmSetFlag = !alarmSetFlag;
+	}
 });
 
 $('.control-hrs li').each(function(){
   $(this).click(function(){
-    sym = $(this).text();
-    alarmControl('hrs', sym);
+    alarmControl('hrs', $(this).text());
   });
 });
 
 $('.control-mins li').each(function(){
   $(this).click(function(){
-    sym = $(this).text();
-    alarmControl('mins', sym);
+    alarmControl('mins', $(this).text());
   });
 });

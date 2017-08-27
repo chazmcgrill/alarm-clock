@@ -10,20 +10,24 @@
   <body>
     <div class="container">
       <div class="clock-wrap">
-        <ul class="control-hrs">
-          <li>+</li>
-          <li>-</li>
-        </ul>
-        <div class="hrs">00</div><span>:</span>
-        <div class="mins">00</div>
-        <ul class="control-mins">
-          <li>+</li>
-          <li>-</li>
-        </ul>
+        <div class="displays mode-display">24hr clock</div>
+        <div class="clock-display">
+          <ul class="control-hrs handle">
+            <li>+</li>
+            <li>-</li>
+          </ul>
+          <div class="hrs nums">00</div><span>:</span>
+          <div class="mins nums">00</div>
+          <ul class="control-mins handle">
+            <li>+</li>
+            <li>-</li>
+          </ul>
+        </div>
+        <div class="displays alarm-display">no alarm set</div>
       </div>
       <div class="btn-wrap">
-        <div class="alarm">SET ALARM</div>
-        <div class="type">24HRS</div>
+        <div class="alarm">set alarm</div>
+        <div class="mode">mode</div>
       </div>
     </div>
     <script src="./js/jquery-3.2.1.min.js"></script>

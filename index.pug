@@ -14,19 +14,22 @@ html(lang="en")
     .container
       
       .clock-wrap
-        ul.control-hrs
-          li +
-          li -
-        .hrs 00
-        span :
-        .mins 00
-        ul.control-mins
-          li +
-          li -
+        .displays.mode-display 24hr clock
+        .clock-display
+          ul.control-hrs.handle
+            li +
+            li -
+          .hrs.nums 00
+          span :
+          .mins.nums 00
+          ul.control-mins.handle
+            li +
+            li -
+        .displays.alarm-display no alarm set
 
       .btn-wrap
-        .alarm SET ALARM
-        .type 24HRS
+        .alarm set alarm
+        .mode mode
         
     script(src="./js/jquery-3.2.1.min.js")
     script(src="./js/app.js")
