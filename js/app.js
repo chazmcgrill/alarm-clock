@@ -9,13 +9,27 @@ var modeFlag = true,
 // Functions
 // display clock data
 function display(hrs, mins) {
+	if(alarmData.alarmSet && hrs === alarmData.hrs && mins === alarmData.mins) {
+		alarmActive();
+	}
 	if(!modeFlag && hrs > 12) {
 		hrs = hrs - 12;
 	}
-	if(hrs < 10) { hrs = '0' + hrs; }
-	if(mins < 10) { mins = '0' + mins; }
+	hrs = zeroPrefixer(hrs);
+	mins = zeroPrefixer(mins);
 	$('.hrs').text(hrs);
 	$('.mins').text(mins);
+}
+
+// Alarm trigger
+function alarmActive() {
+	$('.nums').addClass('alarm-flash');
+	$('.alarm-display').text('alarm!');
+}
+
+// Function to prefix a zero if less than ten
+function zeroPrefixer(num) {
+  return (num < 10 ? '0' : '') + num;
 }
 
 // get javascript time data
@@ -57,9 +71,7 @@ function setAlarm(toSet, text) {
 	var $a = $('.alarm-display')
 	alarmData.alarmSet = toSet;
 	$('.alarm').text(text);
-	console.log(alarmData);
-	toSet ? $a.text('alarm set for ' + alarmData.hrs + ':' + alarmData.mins)
-	: $a.text('no alarm set');
+	toSet ? $a.text('alarm set for ' + alarmData.hrs + ':' + zeroPrefixer(alarmData.mins)) : $a.text('no alarm set');
 }
 
 // Set interval timer that checks every second.
@@ -74,6 +86,7 @@ $('.mode').click(function(){
 
 $('.alarm').click(function(){
 	if (alarmData.alarmSet) {
+		$('.nums').removeClass('alarm-flash');
 		setAlarm(false, 'set alarm');
 	} else {
 		$('ul').toggleClass('handle');

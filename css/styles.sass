@@ -1,6 +1,7 @@
-$bg: #548687
-$light: #C5E99B
-$dark: #8FBC94
+$bg: #011627
+$light: #EFFFE9
+$dark: #2EC4B6
+$contrast: #E71D36
 
 body
   font-family: monospace
@@ -12,7 +13,7 @@ body
 .clock-wrap
   position: relative
   font-size: 72px
-  color: $light
+  color: $dark
   margin: 100px 0 10px
   border: 4px solid
   border-radius: 10px
@@ -72,6 +73,10 @@ body
 
 .flash
   animation: flasher 1s linear infinite
+
+.alarm-flash
+  animation: flasher 1s linear infinite
+  color: $light
 
 @keyframes flasher
   50%
