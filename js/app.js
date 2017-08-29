@@ -3,17 +3,20 @@ var modeFlag = true,
     alarmData = {
       hrs: 0,
       mins: 0,
-      alarmSet: false
+      alarmSet: false,
+			pm: false
     };
 
 // Functions
 // display clock data
 function display(hrs, mins) {
+	console.log(alarmData);
+	console.log('hrs = ' + hrs + ' / mins = ' + mins);
 	if(alarmData.alarmSet && hrs === alarmData.hrs && mins === alarmData.mins) {
 		alarmActive();
 	}
-	if(!modeFlag && hrs > 12) {
-		hrs = hrs - 12;
+	if (!modeFlag) {
+		hrs = ampm(hrs);
 	}
 	hrs = zeroPrefixer(hrs);
 	mins = zeroPrefixer(mins);
@@ -25,6 +28,19 @@ function display(hrs, mins) {
 function alarmActive() {
 	$('.nums').addClass('alarm-flash');
 	$('.alarm-display').text('alarm!');
+}
+
+// am pm mode function
+function ampm(hour) {
+	if (hour > 12) {
+		alarmData.pm = true;
+		$('.ampm-display').text('pm');
+		return hour - 12;
+	} else {
+		alarmData.pm = false;
+		$('.ampm-display').text('am');
+		return hour;
+	}
 }
 
 // Function to prefix a zero if less than ten
@@ -45,6 +61,9 @@ function setClock() {
 function currentTime() {
   alarmData.hrs = Number($('.hrs').text());
   alarmData.mins = Number($('.mins').text());
+	if (alarmData.pm && !modeFlag) {
+		alarmData.hrs = alarmData.hrs + 12;
+	}
 }
 
 // update values after clicking on controls
@@ -77,14 +96,14 @@ function setAlarm(toSet, text) {
 // Set interval timer that checks every second.
 setInterval(setClock, 1000);
 
-
 // Click events
-$('.mode').click(function(){
+$('.mode').click(function() {
 	modeFlag ? $('.mode-display').text('am/pm clock') : $('.mode-display').text('24hr clock');
+	$('.ampm-display').toggleClass('handle');
 	modeFlag = !modeFlag;
 });
 
-$('.alarm').click(function(){
+$('.alarm').click(function() {
 	if (alarmData.alarmSet) {
 		$('.nums').removeClass('alarm-flash');
 		setAlarm(false, 'set alarm');
@@ -96,13 +115,13 @@ $('.alarm').click(function(){
 	}
 });
 
-$('.control-hrs li').each(function(){
+$('.control-hrs li').each(function() {
   $(this).click(function(){
     alarmControl('hrs', $(this).text());
   });
 });
 
-$('.control-mins li').each(function(){
+$('.control-mins li').each(function() {
   $(this).click(function(){
     alarmControl('mins', $(this).text());
   });
